@@ -1,0 +1,13 @@
+{
+  "name": "@richardneililagan/serverless-project-name-generator",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Richard Neil Ilagan <ilagan@amazon.com>",
+  "license": "https://aws.amazon.com/asl"
+}
