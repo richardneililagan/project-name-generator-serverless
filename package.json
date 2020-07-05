@@ -5,9 +5,17 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
+    "lint": "eslint src -f stylish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Richard Neil Ilagan <ilagan@amazon.com>",
-  "license": "https://aws.amazon.com/asl"
+  "license": "https://aws.amazon.com/asl",
+  "devDependencies": {
+    "babel-eslint": "10.1.0",
+    "eslint": "7.4.0",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "prettier": "2.0.5"
+  }
 }
