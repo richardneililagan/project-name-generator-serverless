@@ -21,5 +21,9 @@
     "serverless-bundle": "1.9.0",
     "serverless-plugin-common-excludes": "3.0.0",
     "serverless-plugin-include-dependencies": "4.1.0"
+  },
+  "dependencies": {
+    "aws-sdk": "2.711.0",
+    "faker": "4.1.0"
   }
 }

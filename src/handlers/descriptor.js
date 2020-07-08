@@ -1,5 +1,4 @@
-// const faker = require('faker')
-import faker from 'faker'
+const faker = require('faker')
 import { sanitize } from '../helpers/sanitize'
 
 // :: ---
@@ -9,8 +8,8 @@ const statusCode = 200
 // :: ---
 
 export const handler = async () => {
-  const noun = faker.hacker.noun()
-  const body = sanitize(noun)
+  const descriptor = faker.company.catchPhraseDescriptor()
+  const body = sanitize(descriptor)
 
   return { statusCode, body }
 }

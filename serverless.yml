@@ -13,7 +13,7 @@ provider:
       Resource: '*'
 
   environment:
-    FOO: BAR
+    REGION: ${self:provider.region}
     FUNCTION_PREFIX: ${self:service}-${self:provider.stage}
 
 plugins:
@@ -22,13 +22,13 @@ plugins:
   - serverless-plugin-include-dependencies
 
 package:
-  individually: true
   excludeDevDependencies: false
 
-functions:
-  entrypoint:
-    handler: src/handlers/entrypoint.handler
-    events:
-      - http:
-          path: 'generate'
-          method: GET
+functions: ${file(./src/resources/functions.js)}
+# functions:
+#   entrypoint:
+#     handler: src/handlers/entrypoint.handler
+#     events:
+#       - http:
+#           path: 'generate'
+#           method: GET

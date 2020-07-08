@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -592,7 +592,7 @@ exports.computeSourceURL = computeSourceURL;
 var base64VLQ = __webpack_require__(2);
 var util = __webpack_require__(0);
 var ArraySet = __webpack_require__(3).ArraySet;
-var MappingList = __webpack_require__(10).MappingList;
+var MappingList = __webpack_require__(11).MappingList;
 
 /**
  * An instance of the SourceMapGenerator represents a source map which is
@@ -1050,7 +1050,7 @@ exports.SourceMapGenerator = SourceMapGenerator;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-var base64 = __webpack_require__(9);
+var base64 = __webpack_require__(10);
 
 // A single base 64 digit can contain 6 bits of data. For the base 64 variable
 // length quantities we use in the source map spec, the first bit is the sign,
@@ -1284,34 +1284,75 @@ exports.ArraySet = ArraySet;
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("aws-sdk");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handler", function() { return handler; });
-/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
 /* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(source_map_support_register__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var aws_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var aws_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(aws_sdk__WEBPACK_IMPORTED_MODULE_1__);
 
-const handler = async () => {// :: TODO
+
+const lambda = new aws_sdk__WEBPACK_IMPORTED_MODULE_1__["Lambda"]({
+  region: process.env.REGION
+}); // :: ---
+
+const {
+  FUNCTION_PREFIX
+} = process.env;
+const CHOICES = 5;
+
+const invokeLambda = async (name, payload) => {
+  const params = {
+    FunctionName: name,
+    InvocationType: 'RequestResponse',
+    Payload: payload ? JSON.stringify(payload) : null
+  };
+  const response = await lambda.invoke(params).promise();
+  console.log(response);
+  return JSON.parse(response.Payload).body;
 };
 
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+const invokeRandom = type => {
+  const suffix = ~~(Math.random() * CHOICES);
+  const functionName = `${FUNCTION_PREFIX}-${type}-${suffix}`;
+  return invokeLambda(functionName);
+};
 
-__webpack_require__(6).install();
-
+const handler = async () => {
+  const tasks = [invokeRandom('verb'), invokeRandom('color'), invokeRandom('adjective'), invokeRandom('descriptor'), invokeRandom('noun')];
+  const phrase = (await Promise.all(tasks)).join('-');
+  return {
+    statusCode: 200,
+    body: phrase
+  };
+};
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(module) {var SourceMapConsumer = __webpack_require__(8).SourceMapConsumer;
-var path = __webpack_require__(15);
+__webpack_require__(7).install();
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var SourceMapConsumer = __webpack_require__(9).SourceMapConsumer;
+var path = __webpack_require__(16);
 
 var fs;
 try {
-  fs = __webpack_require__(16);
+  fs = __webpack_require__(17);
   if (!fs.existsSync || !fs.readFileSync) {
     // fs doesn't have all methods we need
     fs = null;
@@ -1320,7 +1361,7 @@ try {
   /* nop */
 }
 
-var bufferFrom = __webpack_require__(17);
+var bufferFrom = __webpack_require__(18);
 
 /**
  * Requires a module which is protected against bundler minification.
@@ -1911,10 +1952,10 @@ exports.resetRetrieveHandlers = function() {
   retrieveFile = handlerExec(retrieveFileHandlers);
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(8)(module)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -1942,7 +1983,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -1951,12 +1992,12 @@ module.exports = function(module) {
  * http://opensource.org/licenses/BSD-3-Clause
  */
 exports.SourceMapGenerator = __webpack_require__(1).SourceMapGenerator;
-exports.SourceMapConsumer = __webpack_require__(11).SourceMapConsumer;
-exports.SourceNode = __webpack_require__(14).SourceNode;
+exports.SourceMapConsumer = __webpack_require__(12).SourceMapConsumer;
+exports.SourceNode = __webpack_require__(15).SourceNode;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /* -*- Mode: js; js-indent-level: 2; -*- */
@@ -2029,7 +2070,7 @@ exports.decode = function (charCode) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* -*- Mode: js; js-indent-level: 2; -*- */
@@ -2114,7 +2155,7 @@ exports.MappingList = MappingList;
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* -*- Mode: js; js-indent-level: 2; -*- */
@@ -2125,10 +2166,10 @@ exports.MappingList = MappingList;
  */
 
 var util = __webpack_require__(0);
-var binarySearch = __webpack_require__(12);
+var binarySearch = __webpack_require__(13);
 var ArraySet = __webpack_require__(3).ArraySet;
 var base64VLQ = __webpack_require__(2);
-var quickSort = __webpack_require__(13).quickSort;
+var quickSort = __webpack_require__(14).quickSort;
 
 function SourceMapConsumer(aSourceMap, aSourceMapURL) {
   var sourceMap = aSourceMap;
@@ -3265,7 +3306,7 @@ exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 /* -*- Mode: js; js-indent-level: 2; -*- */
@@ -3382,7 +3423,7 @@ exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /* -*- Mode: js; js-indent-level: 2; -*- */
@@ -3502,7 +3543,7 @@ exports.quickSort = function (ary, comparator) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* -*- Mode: js; js-indent-level: 2; -*- */
@@ -3921,19 +3962,19 @@ exports.SourceNode = SourceNode;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 var toString = Object.prototype.toString
