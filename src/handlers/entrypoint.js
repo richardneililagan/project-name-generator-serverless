@@ -1,4 +1,7 @@
-import { Lambda } from 'aws-sdk'
+// import { Lambda } from 'aws-sdk'
+const AWSXRay = require('aws-xray-sdk-core')
+const { Lambda } = AWSXRay.captureAWS(require('aws-sdk'))
+
 const lambda = new Lambda({
   region: process.env.REGION,
 })
