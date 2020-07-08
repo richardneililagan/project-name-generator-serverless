@@ -6,6 +6,10 @@ provider:
   stage: dev
   region: ap-southeast-1
 
+  tracing:
+    apiGateway: true
+    lambda: true
+
   iamRoleStatements:
     - Effect: Allow
       Action:
