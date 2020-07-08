@@ -13,3 +13,12 @@ export const handler = async () => {
 
   return { statusCode, body }
 }
+
+export const faultyHandler = async () => {
+  const badTask = new Promise((resolve) => {
+    const response = handler()
+    setTimeout(() => resolve(response), 1500)
+  })
+
+  return badTask
+}

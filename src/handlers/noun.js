@@ -14,3 +14,7 @@ export const handler = async () => {
 
   return { statusCode, body }
 }
+
+export const faultyHandler = async () => {
+  throw new Error('Defecttttttttttttt!')
+}

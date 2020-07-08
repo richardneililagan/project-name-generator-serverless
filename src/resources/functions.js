@@ -7,7 +7,11 @@ const DESCRIPTORS = 10
 // :: ---
 
 const createHandler = (type, i) => {
-  const handler = `src/handlers/${type}.handler`
+  const handler =
+    (type === 'adjective' && i === 4) || (type === 'noun' && i === 4)
+      ? `src/handlers/${type}.faultyHandler`
+      : `src/handlers/${type}.handler`
+
   const name = `${type}-${i}`
 
   return {
