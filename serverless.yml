@@ -25,10 +25,3 @@ package:
   excludeDevDependencies: false
 
 functions: ${file(./src/resources/functions.js)}
-# functions:
-#   entrypoint:
-#     handler: src/handlers/entrypoint.handler
-#     events:
-#       - http:
-#           path: 'generate'
-#           method: GET

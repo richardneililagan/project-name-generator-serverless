@@ -1,8 +1,8 @@
-const NOUNS = 5
-const VERBS = 5
-const ADJECTIVES = 5
-const COLORS = 5
-const DESCRIPTORS = 5
+const NOUNS = 10
+const VERBS = 10
+const ADJECTIVES = 10
+const COLORS = 10
+const DESCRIPTORS = 10
 
 // :: ---
 

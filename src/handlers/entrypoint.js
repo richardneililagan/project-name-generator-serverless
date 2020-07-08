@@ -6,7 +6,7 @@ const lambda = new Lambda({
 // :: ---
 
 const { FUNCTION_PREFIX } = process.env
-const CHOICES = 5
+const CHOICES = 10
 
 const invokeLambda = async (name, payload) => {
   const params = {
@@ -40,6 +40,9 @@ export const handler = async () => {
 
   return {
     statusCode: 200,
-    body: phrase,
+    body: JSON.stringify(phrase),
+    // body: JSON.stringify({
+    //   phrase,
+    // }),
   }
 }
